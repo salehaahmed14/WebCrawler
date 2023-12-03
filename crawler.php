@@ -13,6 +13,12 @@ function fetch_html_content($url) {
 
     // Execute cURL session
     $htmlContent = curl_exec($ch);
+
+    //Error Handling
+    if (curl_errno($ch)) {
+        echo 'cURL error: ' . curl_error($ch);
+    }
+
     // Close cURL session
     curl_close($ch);
 
