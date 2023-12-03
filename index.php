@@ -1,4 +1,5 @@
 <?php
+//function calls to populate the database
 include('database.php');
 include('crawler.php');
 $seedUrl = "https://en.wikipedia.org/wiki/JavaScript";
