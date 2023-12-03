@@ -62,7 +62,7 @@ function crawl_page($url, $depth = 3) {
                 // Ensure the link is not empty and is an absolute URL
                 if (!empty($href) && filter_var($href, FILTER_VALIDATE_URL)) {
                     // Recursive call with the new URL
-                    crawlPage($href, $depth);
+                    crawl_page($href, $depth);
                 }
             }
         }
