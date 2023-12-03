@@ -1,6 +1,6 @@
 <?php
 // Function to fetch HTML content using cURL
-function fetchHtmlContent($url) {
+function fetch_html_content($url) {
 
     //initialise the session
     $ch = curl_init($url);
@@ -20,7 +20,7 @@ function fetchHtmlContent($url) {
 }
 
 //function to Crawl URLs starting from the seed URL
-function crawlPage($url, $depth = 3) {
+function crawl_page($url, $depth = 3) {
 
     // Initialize a static array to track visited URLs
     static $visitedUrls = array();
@@ -33,7 +33,7 @@ function crawlPage($url, $depth = 3) {
         $visitedUrls[] = $url;
 
         // Fetch the HTML content of the page using cURL
-        $htmlContent = fetchHtmlContent($url);
+        $htmlContent = fetch_html_content($url);
 
         //enusre the contents of the page aren't empty
         if(!empty($htmlContent)){
@@ -50,7 +50,7 @@ function crawlPage($url, $depth = 3) {
             $meta = $dom->getElementsByTagName('meta');
 
             // Save the HTML content to the database
-            saveHtmlToDatabase($url, $title, $meta, $htmlContent);
+            save_html_to_database($url, $title, $meta, $htmlContent);
 
             // Decrease depth by one
             $depth--;
@@ -73,7 +73,7 @@ function crawlPage($url, $depth = 3) {
 }
 
 // Function to save HTML content to the database
-function saveHtmlToDatabase($url, $title, $meta, $content) {
+function save_html_to_database($url, $title, $meta, $content) {
     $servername = "localhost";
     $username = "root";
     $password = "";
