@@ -17,6 +17,8 @@ function fetch_html_content($url) {
     //Error Handling
     if (curl_errno($ch)) {
         echo 'cURL error: ' . curl_error($ch);
+        curl_close($ch);
+        return;
     }
 
     // Close cURL session
