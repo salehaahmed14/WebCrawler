@@ -23,7 +23,7 @@
     <div class="container">
         <div class="search-container">
             <h1 class="text-center mt-5">Content Search Module</h1>
-            <form class="mt-4" action="get_results.php" method="post">
+            <form class="mt-4" action="getResults.php" method="post">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="searchButton">
                         <button class="btn btn-primary" type="submit" id="searchButton">Search</button>
