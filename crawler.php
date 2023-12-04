@@ -47,7 +47,10 @@ function crawl_page($url, $depth = 3) {
 
             //using the DOM document class to parse HTML content
             $dom = new DOMDocument;
+            libxml_use_internal_errors(true);
+
             @$dom->loadHTML($htmlContent);
+            libxml_clear_errors();
 
             // Extract anchor tags
             $anchors = $dom->getElementsByTagName('a');
@@ -55,9 +58,18 @@ function crawl_page($url, $depth = 3) {
             $title = $dom->getElementsByTagName('title');
             //Extract Meta content
             $meta = $dom->getElementsByTagName('meta');
+            // Extract text from heading (h) and paragraph (p) tags
+            $xpath = new DOMXPath($dom);
+            $textNodes = $xpath->query('//h|//p');
+
+            $extractedText = '';
+            foreach ($textNodes as $node) {
+                $extractedText .= $node->nodeValue . ' ';
+            }
+
 
             // Save the HTML content to the database
-            save_html_to_database($url, $title, $meta, $htmlContent);
+            save_html_to_database($url, $title, $meta, $htmlContent, $extractedText);
 
             // Decrease depth by one
             $depth--;
@@ -80,7 +92,7 @@ function crawl_page($url, $depth = 3) {
 }
 
 // Function to save HTML content to the database
-function save_html_to_database($url, $title, $meta, $content) {
+function save_html_to_database($url, $title, $meta, $content, $parsed_content) {
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -100,8 +112,8 @@ function save_html_to_database($url, $title, $meta, $content) {
     }
 
     // Prepare and execute the SQL statement
-    $stmt = $conn->prepare("INSERT INTO crawled_pages (url, title, meta_description, html_content) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $url, $titleText, $metaContent, $content);
+    $stmt = $conn->prepare("INSERT INTO crawled_pages (url, title, meta_description, html_content) VALUES (?, ?, ?, ?,?)");
+    $stmt->bind_param("sssss", $url, $titleText, $metaContent, $content, $parsed_content);
     $stmt->execute();
     $stmt->close();
 }
