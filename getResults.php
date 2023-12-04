@@ -14,7 +14,7 @@
 
         .search-container {
             max-width: 600px;
-            margin: 0 auto;
+            margin: 20px auto;
         }
     </style>
 </head>
@@ -23,7 +23,7 @@
     <div class="container">
         <div class="search-container">
             <h1 class="text-center mt-5">Content Search Module</h1>
-            <form class="mt-4" action="getResults.php" method="post">
+            <form class="mt-4 mb-6" action="getResults.php" method="post">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="searchButton">
                         <button class="btn btn-primary" type="submit" id="searchButton">Search</button>
@@ -37,33 +37,42 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
-<?php 
+<?php
 
-//PHP script to get matched Records from the Database
+// PHP script to get matched Records from the Database
 
-//string to be matched
-$string = $_POST["search"]; 
+// string to be matched
+$string = $_POST["search"];
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "web_crawler";
 
-//Create connection to the Database
+// Create connection to the Database
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-//SQL query to retrieve matched records
-$sql= "SELECT * FROM crawled_pages WHERE url LIKE '%$string%' OR title LIKE '%$string%' OR html_content LIKE '%$string%'";
+// SQL query to retrieve matched records
+$sql = "SELECT * FROM crawled_pages WHERE url LIKE '%$string%' OR title LIKE '%$string%' OR html_content LIKE '%$string%'";
 $result = mysqli_query($conn, $sql);
 
-//Display records (URLs)
-if (mysqli_num_rows($result) > 0 && $string !=""){
-    while($row = mysqli_fetch_assoc($result)){
-        echo "<strong>URL:</strong> " . $row["url"] ."<br>";
+// Display records (URLs) with additional context
+if (mysqli_num_rows($result) > 0 && $string != "") {
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo '<div class="card mb-3">';
+        echo '<div class="card-body">';
+        echo '<h4 class="card-title">' . $row["title"] . '</h4>';
+        echo '<p class="card-text"><strong>URL:</strong> <a href="' . $row["url"] . '" class="card-link">' . $row["url"] . '</a></p>';
+
+        // Display a portion of the extracted text
+        echo '<p class="card-text"><strong>Content:</strong> ' . substr(htmlspecialchars($row["parsed_html_content"]), 0, 200) . '...</p>';
+
+        echo '</div>';
+        echo '</div>';
     }
-}else{
+} else {
     echo "<strong>No Results Available.</strong>";
 }
 
