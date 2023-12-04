@@ -6,7 +6,8 @@ This Web Crawler is a PHP based web application designed to crawl websites, pars
 # Setting Up the Web Crawler  
 **Requirements:**  
 * XAMPP (or any similar stack that includes Apache, PHP, and MySQL) - Download and install XAMPP from https://www.apachefriends.org/index.html.  
-* Git  
+* Git
+
 **Cloning the Repository:**  
 * Open your __Git Bash__ or __powershell__ and navigate to the __htdocs__ directory within your XAMPP installation directory. Type the follwing command and then copy and paste the URL for this repository.  
 <pre>
