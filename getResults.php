@@ -65,7 +65,6 @@ if (mysqli_num_rows($result) > 0 && $string != "") {
         echo '<div class="card-body">';
         echo '<h4 class="card-title">' . $row["title"] . '</h4>';
         echo '<p class="card-text"><strong>URL:</strong> <a href="' . $row["url"] . '" class="card-link">' . $row["url"] . '</a></p>';
-
         // Display a portion of the extracted text
         echo '<p class="card-text"><strong>Content:</strong> ' . substr(htmlspecialchars($row["parsed_html_content"]), 0, 200) . '...</p>';
 
