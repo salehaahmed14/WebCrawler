@@ -40,9 +40,9 @@ After following the above steps your web crawler is ready to use, you can levera
 
 **User Interface:**
 * Logging 
-![Log](images/log.png)  
+![Log](Images/log.png)  
 * Database
-![Log](images/db.png)
+![Log](Images/db.png)
 * Content Search Engine  
-![Homepage](images/UI.png)
-![Search Results](images/search.png)
+![Homepage](Images/UI.png)
+![Search Results](Images/search.png)
