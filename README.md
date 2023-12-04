@@ -37,3 +37,12 @@ http://localhost/WebCrawler/contentSearchEngine.html
 
 </pre>  
 After following the above steps your web crawler is ready to use, you can leverage the Content Search Engine to search for your desired text in the crawled content.
+
+**User Interface:**
+* Logging 
+![Log](images/log.png)  
+* Database
+![Log](images/db.png)
+* Content Search Engine  
+![Homepage](images/UI.png)
+![Search Results](images/search.png)
