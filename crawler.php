@@ -112,7 +112,7 @@ function save_html_to_database($url, $title, $meta, $content, $parsed_content) {
     }
 
     // Prepare and execute the SQL statement
-    $stmt = $conn->prepare("INSERT INTO crawled_pages (url, title, meta_description, html_content) VALUES (?, ?, ?, ?,?)");
+    $stmt = $conn->prepare("INSERT INTO crawled_pages (url, title, meta_description, html_content, parsed_html_content) VALUES (?, ?, ?, ?,?)");
     $stmt->bind_param("sssss", $url, $titleText, $metaContent, $content, $parsed_content);
     $stmt->execute();
     $stmt->close();
