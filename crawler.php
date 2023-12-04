@@ -1,9 +1,12 @@
 <?php
+include ("CheckRobotsfile.php");
+
+$disallowedURLs[] = parseRobotsTxt("https://www.wikipedia.org/");
+
 //increase the max execution time
 set_time_limit(300);
 // Function to fetch HTML content using cURL
 function fetch_html_content($url) {
-
     //initialise the session
     $ch = curl_init($url);
 
@@ -33,7 +36,13 @@ function crawl_page($url, $depth = 3) {
 
     // Initialize a static array to track visited URLs
     static $visitedUrls = array();
-    
+
+    global $disallowedURLs;
+
+    if (isUrlDisallowed($disallowedURLs,$url)){
+        return;
+    }
+
     if($depth == 0 || in_array($url, $visitedUrls)){
         echo "Exiting: ". $url. "<br>";
         return;
@@ -119,4 +128,20 @@ function save_html_to_database($url, $title, $meta, $content, $parsed_content) {
     $stmt->execute();
     $stmt->close();
 }
+function isUrlDisallowed($disallowedURLs, $url) {
+    foreach ($disallowedURLs as $disallowedUrl) {
+        if (is_array($disallowedUrl)) {
+            // If it's an array, recursively check each element
+            if (isUrlDisallowed($disallowedUrl, $url)) {
+                return true;
+            }
+        } elseif (strpos($url, $disallowedUrl) === 0) {
+            // Check if any part of the disallowed URL matches the beginning of the current URL
+            return true;
+        }
+    }
+    return false;
+}
+
+
 ?>
