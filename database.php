@@ -26,7 +26,8 @@ $sql = "CREATE TABLE IF NOT EXISTS crawled_pages(
     url VARCHAR(255) NOT NULL,
     title VARCHAR(100),
     meta_description TEXT NOT NULL,
-    html_content TEXT NOT NULL
+    html_content TEXT NOT NULL,
+    parsed_html_content TEXT NOT NULL
 )";
 if ($conn->query($sql) === TRUE) {
     echo "Table 'crawled_pages' created successfully<br>";
