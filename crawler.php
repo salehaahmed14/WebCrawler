@@ -1,4 +1,6 @@
 <?php
+//increase the max execution time
+set_time_limit(300);
 // Function to fetch HTML content using cURL
 function fetch_html_content($url) {
 
